@@ -9,3 +9,11 @@ RUN apt-get update && \
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+<<<<<<< Updated upstream
+=======
+
+RUN /usr/sbin/a2enmod rewrite
+COPY 000-default.conf /etc/apache2/sites-available/000-default.conf
+
+RUN chmod -R 765 /var/www/html
+>>>>>>> Stashed changes
