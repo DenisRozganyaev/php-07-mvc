@@ -6,7 +6,7 @@
             <div class="card w-50 mt-5">
                 <h5 class="card-header">Login</h5>
                 <div class="card-body">
-                    <form action="<?= SITE_URL . '/auth/verify' ?>" method="POST">
+                    <form action="<?= url('auth/verify') ?>" method="POST">
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label">Email address</label>
                             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
@@ -17,7 +17,7 @@
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
-                        <a href="<?= SITE_URL . '/registration' ?>">Create an account</a>
+                        <a href="<?= url('registration') ?>">Create an account</a>
                     </form>
                 </div>
             </div>

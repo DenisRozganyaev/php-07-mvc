@@ -6,7 +6,7 @@
             <div class="card w-50 mt-5">
                 <h5 class="card-header">Create an account</h5>
                 <div class="card-body">
-                    <form action="<?= SITE_URL . '/users/store' ?>" method="POST">
+                    <form action="<?= url('users/store') ?>" method="POST">
                         <div class="mb-3">
                             <label for="name" class="form-label">First Name</label>
                             <input type="text"
@@ -23,11 +23,6 @@
                         <div class="mb-3">
                             <label for="surname" class="form-label">Last Name</label>
                             <input type="text" name="surname" class="form-control" id="surname">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="birthdate" class="form-label">Birthdate</label>
-                            <input type="date" name="birthdate" class="form-control" id="birthdate">
                         </div>
 
                         <div class="mb-3">
