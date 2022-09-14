@@ -1,4 +1,4 @@
-<?php Core\View::render('layout/header', ['admin' => true]); ?>
+<?php Core\View::render('layout/header'); ?>
 <div class="container">
     <div class="row">
         <div class="col-12 text-center text-uppercase">

@@ -6,8 +6,8 @@ use App\Models\User;
 
 class UserBaseValidator extends BaseValidator
 {
-    public function checkEmailOnExists(string $email): bool
+    public function checkEmailOnExists(string $email): bool|User
     {
-        return (bool) User::findBy('email', $email);
+        return User::findBy('email', $email);
     }
 }
