@@ -1,4 +1,7 @@
 <?php
+
+use Core\Db;
+
 require_once dirname(__DIR__) . '/Config/constants.php';
 require_once BASE_DIR . '/vendor/autoload.php';
 

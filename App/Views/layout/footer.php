@@ -1,3 +1,3 @@
-<script src="<?= ASSET_URL . '/libs/bootstrap/js/bootstrap.bundle.js' ?>" type="application/javascript"></script>
+<script src="<?= ASSET_URL . '/libs/bootstrap/js/bootstrap.min.js' ?>" type="application/javascript"></script>
 </body>
 </html>

@@ -43,6 +43,11 @@ class Router
                     if ($controller->before($action)) {
                         call_user_func_array([$controller, $action], $this->params);
                         $controller->after($action);
+                    } else {
+                        if (empty ($_SERVER['HTTP_REFERER'])) {
+                            redirect();
+                        }
+                        redirectBack();
                     }
                 } else {
                     throw new \Exception("Action {$this->params['action']} in class {$controller} not found");

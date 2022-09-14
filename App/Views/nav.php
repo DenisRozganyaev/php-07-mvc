@@ -16,21 +16,21 @@
                 ?>
             </ul>
             <ul class="navbar-nav">
-                <?php if (\App\Helpers\SessionHelper::isUserLoggedIn()): ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('admin/dashboard') ?>">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?= url('logout') ?>">Logout</a>
-                    </li>
-                <?php else: ?>
+<!--                --><?php //if (\App\Helpers\SessionHelper::isUserLoggedIn()): ?>
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="--><?= ''// url('admin/dashboard') ?><!--">Dashboard</a>-->
+<!--                    </li>-->
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link" href="--><?= ''// url('logout') ?><!--">Logout</a>-->
+<!--                    </li>-->
+<!--                --><?php //else: ?>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= url('login') ?>">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?= url('registration') ?>">Registration</a>
                     </li>
-                <?php endif; ?>
+<!--                --><?php //endif; ?>
             </ul>
         </div>
     </div>

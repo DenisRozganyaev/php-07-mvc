@@ -7,11 +7,23 @@ use PDO;
 
 trait Queryable
 {
-    static protected string|null $tableName = "users";
+    static protected string|null $tableName = "";
 
     static protected string $query = "";
 
     protected array $commands = [];
+
+    public static function create(array $fields)
+    {
+        $vars = static::preparedQueryVars($fields);
+
+        $query = "INSERT INTO " . static::$tableName . " ({$vars['keys']}) VALUES ({$vars['placeholders']})";
+        $query = Db::connect()->prepare($query);
+
+        $query->execute($fields);
+
+        return (int)Db::connect()->lastInsertId();
+    }
 
     public static function all(): static
     {
@@ -66,5 +78,16 @@ trait Queryable
             }
         }
         return false;
+    }
+
+    protected static function preparedQueryVars(array $fields): array
+    {
+        $keys = array_keys($fields);
+        $placeholders = preg_filter('/^/', ':', $keys);
+
+        return [
+            'keys' => implode(', ', $keys),
+            'placeholders' => implode(', ', $placeholders),
+        ];
     }
 }
