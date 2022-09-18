@@ -3,6 +3,7 @@
 namespace App\Controllers\Admin;
 
 use App\Models\Category;
+use App\Services\FileUploaderService;
 use App\Validators\Categories\CreateCategoryValidator;
 use Core\View;
 
@@ -29,6 +30,10 @@ class CategoriesController extends BaseController
     {
         $fields = filter_input_array(INPUT_POST, $_POST, true);
         $validator = new CreateCategoryValidator();
+
+        if (!empty($_FILES['image'])) {
+            $fields['image'] = FileUploaderService::upload($_FILES['image']);
+        }
 
         if (!$validator->validate($fields)) {
             dd($fields, $validator->getErrors());
