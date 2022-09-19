@@ -14,6 +14,10 @@
                             <label for="description" class="form-label">Description</label>
                             <textarea name="description" id="description" cols="30" rows="10" class="form-control" placeholder="Description"></textarea>
                         </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">Title</label>
+                            <input type="file" name="image" class="form-control" id="image">
+                        </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

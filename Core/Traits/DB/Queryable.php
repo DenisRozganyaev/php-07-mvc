@@ -13,6 +13,21 @@ trait Queryable
 
     protected array $commands = [];
 
+    /**
+     * User::select()->where()->get();
+     * @param array|string[] $columns
+     * @return static
+     */
+    public static function select(array $columns = ['*']): static
+    {
+        static::$query = "";
+        static::$query = "SELECT " . implode(',', $columns) . " FROM " . static::$tableName . " ";
+        $obj = new static();
+        $obj->commands[] = 'select';
+
+        return $obj;
+    }
+
     public static function create(array $fields)
     {
         $vars = static::preparedQueryVars($fields);
@@ -32,6 +47,73 @@ trait Queryable
         $obj->commands[] = 'all';
 
         return $obj;
+    }
+
+    public function where(string $column, string $operator, $value): static
+    {
+        if (!$this->allowMethod(['select'])) {
+            throw new \Exception('Wrong request');
+        }
+
+        static::$query .= " WHERE {$column}{$operator}:{$column} ";
+        // ['select']
+        $this->commands[] = 'where';
+        // ['select', 'where']
+
+        return $this;
+    }
+
+    public function update(array $data)
+    {
+        if (!$this->allowMethod(['select', 'all', 'where'])) {
+            throw new \Exception('Wrong request');
+        }
+
+        if (!isset($this->id)) {
+            return $this;
+        }
+
+        $query = "UPDATE " . static::$tableName . ' SET ' . static::buildPlaceholders($data) . " WHERE id=:id";
+        $stmt = Db::connect()->prepare($query);
+
+        foreach ($data as $key => $value) {
+            $stmt->bindValue(":{$key}", $value);
+        }
+
+        $stmt->bindValue('id', $this->id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return static::find($this->id);
+    }
+
+    /**
+     * Post::delete(5)
+     * @param int $id
+     * @return bool
+     */
+    public static function delete(int $id)
+    {
+        $query = 'DELETE FROM ' . static::$tableName . ' WHERE id = :id';
+
+        $stmt = Db::connect()->prepare($query);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+
+        return $stmt->execute();
+    }
+
+    /**
+     * $post = Post::find(5)
+     *  ....
+     * $post->destroy();
+     * @return $this|bool
+     */
+    public function destroy()
+    {
+        if (!isset($this->id)) {
+            return $this;
+        }
+
+        return static::delete($this->id);
     }
 
     public static function find(int $id)
@@ -89,5 +171,16 @@ trait Queryable
             'keys' => implode(', ', $keys),
             'placeholders' => implode(', ', $placeholders),
         ];
+    }
+
+    private static function buildPlaceholders(array $data): string
+    {
+        $ps = [];
+
+        foreach ($data as $key => $value) {
+            $ps[] = " {$key}=:{$key}";
+        }
+
+        return implode(', ', $ps);
     }
 }
