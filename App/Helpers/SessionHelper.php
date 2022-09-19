@@ -17,8 +17,13 @@ class SessionHelper
     {
         $_SESSION['user_data'] = array_merge(
             ['id' => $id],
-            $args
+            ...$args
         );
+    }
+
+    public static function isAdmin(): bool
+    {
+        return $_SESSION['user_data']['is_admin'] ?? false;
     }
 
     public static function destroy()
